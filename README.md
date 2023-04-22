@@ -1,11 +1,9 @@
-Project: Project in Python using ChatGPT for child story creation, using Streamlit for the visual part.   
+Project: Project in Python using ChatGPT for child story creation.   
 Autor: Hamilton Tenório da Silva   
 Date: April/22/2023   
 
 This project uses Google AI for speech recognition in Portuguese Brazilian voice.  
 The voice is from "Luciana" (Apple).  
-
-See this project on https://htsnet-gerador-historia-infantil-chatgpt-index-4sf3kn.streamlit.app/
 
 
 ------ Instructions ------
@@ -15,7 +13,7 @@ cd Ambiente_Virtual\Scripts
 activate  
 cd ../..  
 pip install <packages>  
-streamlit run app.py  
+run index.py  
 
 
 Packages:
