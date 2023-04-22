@@ -1,5 +1,0 @@
-openai
-SpeechRecognition
-pyaudio
-pyttsx3
-playsound

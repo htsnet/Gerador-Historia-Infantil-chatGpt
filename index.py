@@ -1,13 +1,17 @@
-import streamlit as st
 import speech_recognition as sr
 import pyttsx3
 import openai
 import playsound
+import configparser
+
+# lê o arquivo de configuração
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 # Insira sua chave de API aqui
-openai.api_key = st.secrets['api_key_openai']
+openai.api_key = config.get('Keys', 'api_key_openai')
 
-contexto = 'Crie uma história infantil.'
+contexto = 'Crie uma história infantil engraçada com'
 temperature = 0.7
 limiteModelo = 4096
 
@@ -30,19 +34,6 @@ def get_chat_response(prompt):
 def play_sound(filename):
     playsound.playsound(filename)
 
-with st.sidebar:
-    st.header('Orientação de uso')
-    st.write('1 - Ao ouvir o beep, fale uma ideia para a criação da história infantil.')
-    st.write('2 - Aguarde a fala da história criada pelo chatGPT')
-   
-    st.header('Sobre')
-    st.write('Detalhe sobre este projeto pode ser encontrado em: ')
-
-
-# título
-Title = f'Criador de História Infantil (ChatGPT)'
-st.title(Title)            
-
 # ativa o microfone
 mic = sr.Recognizer()
 
@@ -62,14 +53,13 @@ with sr.Microphone() as source:
         frase = mic.recognize_google(audio, language='pt-BR')
         print('você falou: ' + frase)    
         # fala o que escutou
-        engine.say(frase)
+        engine.say("Oi Enzo, eu sou a Luciana. Vou pensar em uma história sobre " + frase)
         engine.runAndWait()
         # libera os recursos do microfone
         # mic.stop()   ??? precisa
         
         response = get_chat_response(contexto + ' ' + frase)
         print(response) 
-        st.write(response)
         engine.say(response)
         engine.runAndWait()
                 
@@ -77,6 +67,3 @@ with sr.Microphone() as source:
         print('algo deu errado')
         engine.say("Desculpe, eu não entendi")
         engine.runAndWait()
-
-# mic.stop()        
-# engine.stop()
